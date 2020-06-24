@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { withStyles, useTheme, makeStyles } from '@material-ui/core/styles';
-import * as Material from '@material-ui/core';
-import * as Icons from '@material-ui/icons';
+import React from 'react';
+import { useHistory, useLocation } from "react-router-dom";
+// import classNames from 'classnames';
+// import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+// import * as Material from '@material-ui/core';
+// import * as Icons from '@material-ui/icons';
 
 import { Toolbar } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
@@ -14,18 +15,28 @@ import { headerStyle } from '../styles/components/header';
 const useStyles = makeStyles(headerStyle as any);
 
 export const Header = (props: { title: string, sections?: any[] }) => {
+	let history = useHistory();
 	const classes = useStyles();
 	const { title, sections } = props;
+
+	const onClickAccount = () => {
+		history.replace('/login');
+	};
+
 	return (
 		<React.Fragment>
 			<header>
+
 				<Toolbar className={classes.toolbar}>
 					<Button size="small">Subscribe</Button>
+
 					<Typography component="h2" variant="h5" color="inherit" align="center" noWrap className={classes.toolbarTitle}>
 						{title}
 					</Typography>
-					<Button variant="outlined" size="small">Account</Button>
+
+					<Button variant="outlined" size="small" onClick={onClickAccount}>Account</Button>
 				</Toolbar>
+
 				{sections && (
 					<Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
 						{sections.map((section: any) => (
@@ -35,6 +46,7 @@ export const Header = (props: { title: string, sections?: any[] }) => {
 						))}
 					</Toolbar>
 				)}
+
 			</header>
 		</React.Fragment>
 	);

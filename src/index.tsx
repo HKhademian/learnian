@@ -5,7 +5,9 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App  />
+		<div style={{ height: window.innerHeight, width: window.innerWidth }}>
+			<App />
+		</div>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

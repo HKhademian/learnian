@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { withStyles, useTheme, makeStyles } from '@material-ui/core/styles';
-import * as Material from '@material-ui/core';
+// import classNames from 'classnames';
+// import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+// import * as Material from '@material-ui/core';
 import * as Icons from '@material-ui/icons';
 
 import { BottomNavigation } from '@material-ui/core';
