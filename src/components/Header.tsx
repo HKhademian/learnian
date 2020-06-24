@@ -19,12 +19,11 @@ export const Header = (props: { title: string, sections?: any[] }) => {
 	const classes = useStyles();
 	const { title, sections } = props;
 
-	const onClickAccount = () => {
-		history.replace('/login');
-	};
+	const onClickLogo = () => history.push('/');
+	const onClickAccount = () => history.push('/signup');
+	const onClickClass = () => history.push('/class');
 
-	return (
-		<React.Fragment>
+	return (<>
 			<header>
 
 				<Toolbar className={classes.toolbar}>
@@ -48,6 +47,5 @@ export const Header = (props: { title: string, sections?: any[] }) => {
 				)}
 
 			</header>
-		</React.Fragment>
-	);
+	</>);
 };

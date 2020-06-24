@@ -3,7 +3,13 @@ import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 import { createMuiTheme } from '@material-ui/core/styles';
 import mainColor from '@material-ui/core/colors/blueGrey';
 import { ThemeProvider } from '@material-ui/core';
-import * as Pages from '../pages'
+import {
+	HomePage,
+	AboutPage,
+	ClassPage,
+	SignUpPage,
+	SignInPage,
+} from '../pages';
 
 const theme = createMuiTheme({
 	palette: {
@@ -13,17 +19,17 @@ const theme = createMuiTheme({
 
 export const App = () => {
 	return (
-		<React.Fragment>
+		<>
 			<ThemeProvider theme={theme}>
 				<Router>
 					<Switch >
-						<Route path='/about' component={Pages.AboutPage} />
-						<Route path='/login' component={Pages.LoginPage} />
-						<Route path='/register' component={Pages.RegisterPage} />
-						<Route path='/' component={Pages.HomePage} />
+						<Route path='/signup' component={SignUpPage} />
+						<Route path='/signin' component={SignInPage} />
+
+						<Route path='/' component={HomePage} />
 					</Switch>
 				</Router>
 			</ThemeProvider>
-		</React.Fragment>
+		</>
 	);
 }
