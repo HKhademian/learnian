@@ -11,7 +11,7 @@ import { headerStyle } from '../styles/components/header';
 const useStyles = makeStyles(headerStyle as any);
 
 export const Header = (props: { title: string, whiteboard?: boolean, sections?: any[] }) => {
-	let history = useHistory();
+	const history = useHistory();
 	const classes = useStyles();
 	const { title, whiteboard, sections } = props;
 
