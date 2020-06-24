@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 import { createMuiTheme } from '@material-ui/core/styles';
-import mainColor from '@material-ui/core/colors/blueGrey';
+import mainColor from '@material-ui/core/colors/deepPurple';
 import { ThemeProvider } from '@material-ui/core';
 import {
 	HomePage,
@@ -23,6 +23,8 @@ export const App = () => {
 			<ThemeProvider theme={theme}>
 				<Router>
 					<Switch >
+						<Route path='/about' component={AboutPage} />
+						<Route path='/class' component={ClassPage} />
 						<Route path='/signup' component={SignUpPage} />
 						<Route path='/signin' component={SignInPage} />
 

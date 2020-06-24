@@ -8,17 +8,29 @@ import React from 'react';
 import { CssBaseline } from '@material-ui/core';
 import { Container } from '@material-ui/core';
 
-import { Header } from './Header';
-// import { Footer } from './Footer';
+import { Header, Footer, } from '.';
 
 export function AppFrame(props: any) {
-	const { children, title } = props;
+	const { children, title, whiteboard, container } = props;
+
+	const inner = (<>
+		<Header title={title} whiteboard={whiteboard} />
+		<main style={{ flex: 1 }}>{children}</main>
+		<Footer />
+	</>);
+
 	return (
-		<Container maxWidth="lg">
+		<>
 			{/* <NProgressBar /> */}
-			<CssBaseline />
-			<Header title={title} />
-			<main style={{ flex: 1 }}>{children}</main>
-		</Container>
+			< CssBaseline />
+			{!container ? inner :
+				<Container maxWidth="lg">{inner}</Container>
+			}
+		</>
 	);
+}
+
+AppFrame.defaultProps = {
+	whiteboard: true,
+	container: true,
 }
