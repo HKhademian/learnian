@@ -6,7 +6,7 @@ import * as Material from '@material-ui/core';
 import * as Icons from '@material-ui/icons';
 import { Paper } from '@material-ui/core';
 
-import { AppFrame, Footer, } from '../components';
+import { AppFrame, Footer, WhiteBoard } from '../components';
 
 import { homePageStyle } from '../styles';
 const useStyles = makeStyles(homePageStyle as any);
@@ -19,19 +19,10 @@ export function HomePage(props: any) {
 			<Paper >
 				<div className={classNames(classes.main, classes.mainRaised)}>
 					<div>
-						<div className={classes.container}>
-							<div className={classes.description}>
-								<p>
-									An artist of considerable range, Chet Faker — the name taken by
-									Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-									and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
-								</p>
-							</div>
-						</div>
-					</div>
+
+				<WhiteBoard brushColor={"#663399"} canvasWidth={window.innerWidth/2} canvasHeight={500} />
+
 				</div>
-			</Paper>
 			<Footer />
 
 		</AppFrame>
