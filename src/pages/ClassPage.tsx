@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { Button, makeStyles } from '@material-ui/core';
 
-import { WhiteBoard, Streaming, } from '../components';
+import { WhiteBoard, Streaming, AppFrame, } from '../components';
 import { useWindowSize, } from '../tools';
 
 const classPageStyle = {
@@ -27,18 +27,21 @@ export const ClassPage = () => {
 	const windowSize = useWindowSize();
 	const [largeVideo, setLargeVideo] = useState(false);
 
-	const onClickBack = () => history.goBack();
 	const onClickVideo = () => setLargeVideo(!largeVideo);
 
-	const videoWidth = Math.min(largeVideo ? 500 : 250, windowSize.width * 0.95)
+	const videoSize = {
+		width: Math.min(largeVideo ? 500 : 250, windowSize.width * 0.95),
+		height: undefined,
+	};
+	const whiteboardSize = {
+		width: windowSize.width * 0.99,
+		height: windowSize.height - 150,
+	};
 
 	return (<>
-		<Button variant="outlined" color="primary" onClick={onClickBack}>Back</Button>
-		<Streaming className={classes.streaming} onClick={onClickVideo} width={videoWidth} />
-		<WhiteBoard
-			className={classes.whiteboard}
-			canvasWidth={windowSize.width * 0.99}
-			canvasHeight={windowSize.height - 150}
-		/>
+		<AppFrame back free>
+			<Streaming className={classes.streaming} onClick={onClickVideo} width={videoSize.width} height={videoSize.height} />
+			<WhiteBoard className={classes.whiteboard} canvasWidth={whiteboardSize.width} canvasHeight={whiteboardSize.height} />
+		</AppFrame>
 	</>);
 }

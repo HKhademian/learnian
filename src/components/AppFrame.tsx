@@ -5,10 +5,11 @@ import { Container } from '@material-ui/core';
 import { Header, Footer, } from '.';
 
 export function AppFrame(props: any) {
-	const { children, title, whiteboard, container } = props;
+	const { children, title } = props;
+	const { back, free } = props;
 
 	const inner = (<>
-		<Header title={title} whiteboard={whiteboard} />
+		<Header title={title} back={back} />
 		<main style={{ flex: 1 }}>
 			{children}
 		</main>
@@ -18,13 +19,13 @@ export function AppFrame(props: any) {
 	return (<>
 		{/* <NProgressBar /> */}
 		< CssBaseline />
-		{!container ? inner :
+		{free ? inner :
 			<Container maxWidth="lg">{inner}</Container>
 		}
 	</>);
 }
 
 AppFrame.defaultProps = {
-	whiteboard: true,
-	container: true,
+	back: false,
+	free: false,
 }
