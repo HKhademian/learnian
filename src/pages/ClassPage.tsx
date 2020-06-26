@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Button, Paper, makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 
 import { WhiteBoard, Streaming, } from '../components';
 import { useWindowSize, } from '../tools';

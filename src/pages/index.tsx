@@ -1,5 +1,7 @@
 import React from 'react';
 
+export * from './Routes';
+
 export * from './HomePage';
 export * from './ClassPage';
 export * from './SignInPage';

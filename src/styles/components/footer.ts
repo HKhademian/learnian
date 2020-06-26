@@ -1,3 +1,3 @@
-export const footerStyle = (theme: any) => ({
+export const footerStyle = {
 
-});
+};

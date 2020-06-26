@@ -3,13 +3,8 @@ import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 import { createMuiTheme } from '@material-ui/core/styles';
 import mainColor from '@material-ui/core/colors/deepPurple';
 import { ThemeProvider } from '@material-ui/core';
-import {
-	HomePage,
-	AboutPage,
-	ClassPage,
-	SignUpPage,
-	SignInPage,
-} from '../pages';
+
+import { Routes } from '../pages';
 
 const theme = createMuiTheme({
 	palette: {
@@ -18,20 +13,13 @@ const theme = createMuiTheme({
 });
 
 export const App = () => {
-	return (
-		<>
+	return (<>
+		<React.StrictMode>
 			<ThemeProvider theme={theme}>
 				<Router>
-					<Switch >
-						<Route path='/about' component={AboutPage} />
-						<Route path='/class' component={ClassPage} />
-						<Route path='/signup' component={SignUpPage} />
-						<Route path='/signin' component={SignInPage} />
-
-						<Route path='/' component={HomePage} />
-					</Switch>
+					<Routes />
 				</Router>
 			</ThemeProvider>
-		</>
-	);
+		</React.StrictMode>
+	</>);
 }
