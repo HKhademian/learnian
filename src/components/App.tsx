@@ -1,25 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
-import { createMuiTheme } from '@material-ui/core/styles';
-import mainColor from '@material-ui/core/colors/deepPurple';
-import { ThemeProvider } from '@material-ui/core';
+import {BrowserRouter as Router} from 'react-router-dom';
 
-import { Routes } from '../pages';
-
-const theme = createMuiTheme({
-	palette: {
-		primary: mainColor,
-	},
-});
+import {MyAppRouter} from '../pages';
 
 export const App = () => {
 	return (<>
 		<React.StrictMode>
-			<ThemeProvider theme={theme}>
-				<Router>
-					<Routes />
-				</Router>
-			</ThemeProvider>
+			<Router>
+				<MyAppRouter/>
+			</Router>
 		</React.StrictMode>
 	</>);
 }

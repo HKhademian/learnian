@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Button, makeStyles } from '@material-ui/core';
-
 import { WhiteBoard, Streaming, AppFrame, } from '../components';
 import { useWindowSize, } from '../tools';
 
@@ -19,11 +17,10 @@ const classPageStyle = {
 
 	},
 };
-const useStyles = makeStyles(classPageStyle as any);
 
 export const ClassPage = () => {
 	const history = useHistory();
-	const classes = useStyles();
+	const classes = classPageStyle;
 	const windowSize = useWindowSize();
 	const [largeVideo, setLargeVideo] = useState(false);
 

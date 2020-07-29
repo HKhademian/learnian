@@ -1,26 +1,22 @@
 import React from 'react';
-import { CssBaseline } from '@material-ui/core';
-import { Container } from '@material-ui/core';
 
-import { Header, Footer, } from '.';
+import {Container, Header, Footer,} from '.';
 
-export function AppFrame(props: any) {
-	const { children, title } = props;
-	const { back, free } = props;
+export function AppFrame(props: { children: any, title?: String, back?: boolean, free?: boolean }) {
+	const {children, title} = props;
+	const {back, free} = props;
 
 	const inner = (<>
-		<Header title={title} back={back} />
-		<main style={{ flex: 1 }}>
+		<Header title={title} back={back}/>
+		<main style={{flex: 1}}>
 			{children}
 		</main>
-		<Footer />
+		<Footer/>
 	</>);
 
 	return (<>
-		{/* <NProgressBar /> */}
-		< CssBaseline />
 		{free ? inner :
-			<Container maxWidth="lg">{inner}</Container>
+			<Container /*maxWidth="lg"*/>{inner}</Container>
 		}
 	</>);
 }

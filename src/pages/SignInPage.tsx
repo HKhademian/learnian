@@ -1,57 +1,42 @@
 /// SOURCE: https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-up
 
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-
-import { makeStyles } from '@material-ui/core/styles';
-import {
-	Avatar,
-	Button,
-	CssBaseline,
-	TextField,
-	FormControlLabel,
-	Checkbox,
-	Link,
-	Grid,
-	Box,
-	Typography,
-	Container,
-} from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-
-import { Copyright } from '../components';
+import {useHistory} from 'react-router-dom';
 
 
-const useStyles = makeStyles((theme) => ({
+import {Copyright} from '../components';
+
+
+const style = {
 	paper: {
-		marginTop: theme.spacing(8),
+		marginTop: 8,
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
 	},
 	avatar: {
-		margin: theme.spacing(1),
-		backgroundColor: theme.palette.secondary.main,
+		margin: 1,
+		backgroundColor: 'red',
 	},
 	form: {
 		width: '100%', // Fix IE 11 issue.
-		marginTop: theme.spacing(3),
+		marginTop: 3,
 	},
 	submit: {
-		margin: theme.spacing(3, 0, 2),
+		margin: '3,0,2',
 	},
-}));
+};
 
 export const SignInPage = () => {
 	const history = useHistory();
-	const classes = useStyles();
 
-	const onClickSignIn = () => { };
+	const onClickSignIn = () => {
+	};
 	const onClickSignUp = () => history.replace('/signup');
 	const onClickBack = () => history.goBack();
 
 	return (<>
-		<Container component="main" maxWidth="xs">
+		{/*<Container component="main" maxWidth="xs">
 			<CssBaseline />
 			<div className={classes.paper}>
 				<Avatar className={classes.avatar}>
@@ -117,6 +102,6 @@ export const SignInPage = () => {
 			<Box mt={5}>
 				<Copyright />
 			</Box>
-		</Container>
+		</Container>*/}
 	</>);
 }

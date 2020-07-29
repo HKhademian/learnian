@@ -1,6 +1,6 @@
 import React from 'react';
 
-export * from './Routes';
+export * from './MyAppRouter';
 
 export * from './HomePage';
 export * from './ClassPage';

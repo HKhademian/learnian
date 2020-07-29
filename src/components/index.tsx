@@ -1,3 +1,5 @@
+export * from './base';
+
 export * from './App';
 export * from './AppFrame';
 export * from './TopBar';

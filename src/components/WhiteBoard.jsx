@@ -1,27 +1,23 @@
 import React from 'react';
 import classNames from 'classnames';
 // import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-
 import CanvasDraw from 'react-canvas-draw';
-
-import * as MaterialColors from '@material-ui/core/colors';
 
 const colors = {
 	"Black": "#000000",
 	"White": "#ffffff",
-	"Red": MaterialColors.red[500],
-	"Blue": MaterialColors.blue[500],
-	"Green": MaterialColors.green[500],
-	"Yellow": MaterialColors.yellow[500],
-	"Orange": MaterialColors.orange[500],
-	"pink": MaterialColors.pink[500],
-	"purple": MaterialColors.purple[500],
-	"cyan": MaterialColors.cyan[500],
-	"teal": MaterialColors.teal[500],
-	"lime": MaterialColors.lime[500],
-	"brown": MaterialColors.brown[500],
-	"grey": MaterialColors.grey[500],
+	// "Red": MaterialColors.red[500],
+	// "Blue": MaterialColors.blue[500],
+	// "Green": MaterialColors.green[500],
+	// "Yellow": MaterialColors.yellow[500],
+	// "Orange": MaterialColors.orange[500],
+	// "pink": MaterialColors.pink[500],
+	// "purple": MaterialColors.purple[500],
+	// "cyan": MaterialColors.cyan[500],
+	// "teal": MaterialColors.teal[500],
+	// "lime": MaterialColors.lime[500],
+	// "brown": MaterialColors.brown[500],
+	// "grey": MaterialColors.grey[500],
 };
 
 const sizes = {
@@ -42,10 +38,9 @@ const whiteBoardStyle = {
 		borderColor: "gold",
 	},
 };
-const useStyles = makeStyles(whiteBoardStyle);
 
 export const WhiteBoard = (props) => {
-	const classes = useStyles();
+	const classes = whiteBoardStyle;
 	const [options, setOptions] = React.useState({
 		...props,
 		brushColor: Object.entries(colors)[0][1],

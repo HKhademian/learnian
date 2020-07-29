@@ -9,8 +9,7 @@ import {
 	SignInPage,
 } from '.';
 
-
-export const Routes = () => (<>
+export const MyAppRouter = () => (<>
 	<Switch >
 		<Route path='/' exact component={HomePage} />
 		<Route path='/about' component={AboutPage} />
