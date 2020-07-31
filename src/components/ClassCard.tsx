@@ -10,18 +10,22 @@ export const ClassCard = ({appData, cls, onAttend}: { appData: AppData, cls: Cla
 
 	return (<>
 		<div className="card mb-3">
-			<div className="row row-cols-sm-1 no-gutters">
+			<div className="row g-0">
 				<div className="col-md-4">
 					<img width="100%" height='100%' src={cls.image} className="card-img-top" alt="Class Avatar"/>
 				</div>
-				<div className="col-md">
+				<div className="col-md-8">
 					<div className="card-body">
 						<h5 className="card-title">{cls.title}</h5>
 						<p className="card-text">{cls.desc}</p>
-						<a className="card-link" onClick={() => onAttend(cls)}>Attend</a>
-						{(cls.owner === appData.user) && (
-							<a className="card-link btn-outline-danger" onClick={() => onDeleteClass(cls)}>Delete class</a>
-						)}
+						<div className="btn-group" role="group">
+							<button type="button" className="btn btn-info" onClick={() => onAttend(cls)}>Attend</button>
+							{(cls.owner === appData.user) && (
+								<button type="button" className="btn btn-outline-danger" onClick={() => onDeleteClass(cls)}>
+									Delete Class
+								</button>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>

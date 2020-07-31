@@ -8,5 +8,7 @@ import {AccountWidget} from "../components/AccountWidget";
 export const AccountPage = () => {
 	const appData = React.useContext(AppDataContext);
 
-	return (<AppFrame><AccountWidget {...{appData}} /></AppFrame>);
+	return (<AppFrame>
+		<AccountWidget {...{appData}} />
+	</AppFrame>);
 }

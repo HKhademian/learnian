@@ -24,7 +24,10 @@ export const AppDataContext = React.createContext<AppData>(undefined as any as A
 
 export const AppDataProvider = (props: any) => {
 	const history = useHistory();
-	const [user, setUser] = useState(undefined as (User | undefined));
+
+	const defaultUser = config.defaults.users[3];
+
+	const [user, setUser] = useState<User | undefined>(defaultUser);
 	const [users, setUsers] = useState(config.defaults.users);
 	const [classes, setClasses] = useState(config.defaults.classes);
 	const [quizzes, setQuizzes] = useState(config.defaults.quizzes);

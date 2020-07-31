@@ -6,6 +6,7 @@ export * from './HomePage';
 export * from './AccountPage';
 export const AboutPage = () => <div> This is About Page </div>;
 
+export * from './ClassRoomPage';
 export * from './ClassListPage';
 export * from './UserListPage';
-export * from './ClassRoomPage';
+export {NewClassSection} from "../components/NewClassSection";

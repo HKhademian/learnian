@@ -9,8 +9,12 @@ export const HomePage = () => {
 	return (<AppFrame>
 		<div className='container-fluid'>
 			<ul>
-				<li><a href='/users'>Users</a></li>
-				<li><a href='/classes'>Classes</a></li>
+				<li>
+					<button onClick={() => history.push('/users')}>Users</button>
+				</li>
+				<li>
+					<button onClick={() => history.push('/classes')}>Classes</button>
+				</li>
 			</ul>
 		</div>
 	</AppFrame>);

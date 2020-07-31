@@ -4,7 +4,11 @@ export class Class {
 	public quizzes: Quiz[];
 
 	public get image(): string {
-		return "https://picsum.photos/64.webp?grayscale&blur&_=" + this.id;
+		const rand = this.id;
+		const size = '256'; //'64';
+		const gray = false;
+		const blur = true;
+		return `https://picsum.photos/${size}.webp?${gray && 'grayscale'}&${blur && 'blur'}&random=${rand}`;
 	}
 
 	constructor(
