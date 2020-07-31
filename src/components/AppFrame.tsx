@@ -1,27 +1,24 @@
 import React from 'react';
+import {Widget as ChatWidget, addResponseMessage} from 'react-chat-widget';
+import {Header, Footer,} from '.';
 
-import {Container, Header, Footer,} from '.';
+import 'react-chat-widget/lib/styles.css';
 
-export function AppFrame(props: { children: any, title?: String, back?: boolean, free?: boolean }) {
-	const {children, title} = props;
-	const {back, free} = props;
-
-	const inner = (<>
-		<Header title={title} back={back}/>
-		<main style={{flex: 1}}>
-			{children}
-		</main>
-		<Footer/>
-	</>);
-
+export function AppFrame({children, title, back = false, hideChat = false}: { children: any, title?: string, back?: boolean, hideChat?: boolean }) {
 	return (<>
-		{free ? inner :
-			<Container /*maxWidth="lg"*/>{inner}</Container>
-		}
-	</>);
-}
+		<div className='container'>
+			<Header title={title} back={back}/>
 
-AppFrame.defaultProps = {
-	back: false,
-	free: false,
+			<main style={{flex: 1}}>
+				{children}
+			</main>
+
+			{!hideChat && <ChatWidget
+				title="Learnian ChatRoom"
+				subtitle="Communicate with each other"
+			/>}
+
+			<Footer/>
+		</div>
+	</>);
 }

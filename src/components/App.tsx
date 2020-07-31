@@ -1,13 +1,16 @@
 import React from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
 
+import {AppDataProvider} from '../data';
 import {MyAppRouter} from '../pages';
 
 export const App = () => {
 	return (<>
 		<React.StrictMode>
 			<Router>
-				<MyAppRouter/>
+				<AppDataProvider>
+					<MyAppRouter/>
+				</AppDataProvider>
 			</Router>
 		</React.StrictMode>
 	</>);
