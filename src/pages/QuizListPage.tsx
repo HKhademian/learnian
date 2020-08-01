@@ -1,13 +1,11 @@
 import React from 'react';
-import {useHistory} from "react-router-dom";
 
-import {AppDataContext, Quiz,} from '../data';
+import {AppDataContext,} from '../data';
 import {AppFrame,} from '../components';
 import {QuizCard} from "../components/QuizCard";
 import {NewQuizSection} from "../components/NewQuizSection";
 
 export const QuizListPage = () => {
-	const history = useHistory();
 	const appData = React.useContext(AppDataContext);
 
 	return (<AppFrame>

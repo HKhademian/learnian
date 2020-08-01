@@ -11,5 +11,5 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
 	const users = req.database.users;
 	const view = users.map(it => ({id: it.id, title: it.title}));
-	return res.json(view);
+	return res.apiSuccess(view);
 });

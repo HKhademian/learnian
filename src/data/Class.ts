@@ -1,5 +1,3 @@
-import {User} from './';
-
 export class Class {
 
 	public get image(): string {
@@ -15,7 +13,7 @@ export class Class {
 		public title: string,
 		public desc: string,
 		public studentCount: number,
-		public owner: User,
+		public ownerId: string,
 	) {
 	}
 }

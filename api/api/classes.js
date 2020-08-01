@@ -9,5 +9,5 @@ router.use((req, res, next) => {
 });
 
 router.get('/', (req, res) => {
-	return res.json(req.database.classes);
+	return res.apiSuccess(req.database.classes);
 });

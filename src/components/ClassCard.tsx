@@ -9,9 +9,11 @@ export const ClassCard = ({item, single = false}: { item: Class, single?: boolea
 	const onAttend = (item: Class) => history.push(`/classroom/${item.id}`);
 
 	const onDeleteItem = (item: Class) => {
-		if (item.owner !== appData.user) return alert('only owner can delete a class!');
-		appData.setClasses(appData.classes.filter((it) => it !== item));
+		if (!appData.user || item.ownerId !== appData.user.id) return alert('only owner can delete a class!');
+		appData.deleteClass(item.id);
 	};
+
+	const owner = appData.users.find(it => it.id === item.ownerId);
 
 	return (<>
 		<div className={"card mb-3" + (single && ' my-2')}>
@@ -23,16 +25,15 @@ export const ClassCard = ({item, single = false}: { item: Class, single?: boolea
 					<div className="card-body h-100 d-flex flex-column">
 						<h3 className="card-title">{item.title}</h3>
 						<div className="card-text">
-							<div><strong>Teacher: </strong><em> {item.owner.title}</em></div>
+							<div><strong>Teacher: </strong><em> {owner?.title}</em></div>
 							<div><strong>Students: </strong><em> {item.studentCount}</em></div>
 							<p>{item.desc}</p>
 						</div>
 						<div className="btn-group align-self-stretch" role="group">
 							<button type="button" className="btn btn-info" onClick={() => onInfo(item)}>More Info</button>
 							<button type="button" className="btn btn-secondary" onClick={() => onAttend(item)}>Attend</button>
-							{(item.owner === appData.user) && (
-								<button type="button" className="btn btn-danger"
-												disabled={!(item.owner === appData.user)} onClick={() => onDeleteItem(item)}>
+							{(item.ownerId === appData.user?.id) && (
+								<button type="button" className="btn btn-danger" onClick={() => onDeleteItem(item)}>
 									Delete Class
 								</button>
 							)}

@@ -1,11 +1,10 @@
 const express = require('express');
-const cors = require('cors');
+const {loremIpsum} = require('lorem-ipsum');
 const {api} = require('./api');
 
 const PORT = 8000;
 
 const app = express();
-app.use(cors());
 
 app.use('/public', express.static('../public'));
 
@@ -15,13 +14,13 @@ app.use(express.urlencoded({extended: true}));
 app.use('/api', api);
 
 app.listen(PORT, () => {
-	const {generateID} = require("../common/utils");
-	console.log(generateID());
-	console.log(generateID());
-	console.log(generateID());
-	console.log(generateID());
-	console.log(generateID());
-	console.log(generateID());
+	const {generateID} = require("../src/utils");
+	console.log(generateID(), loremIpsum());
+	console.log(generateID(), loremIpsum());
+	console.log(generateID(), loremIpsum());
+	console.log(generateID(), loremIpsum());
+	console.log(generateID(), loremIpsum());
+	console.log(generateID(), loremIpsum());
 
 	console.log(`Api server listening on port 'http://localhost:${PORT}/' !`);
 });

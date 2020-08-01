@@ -15,8 +15,8 @@ export class Question {
 export class Quiz {
 	public questions: Question[];
 
-	public get owner(): User {
-		return this.clazz.owner;
+	public get ownerId(): string {
+		return this.clazz.ownerId;
 	}
 
 	constructor(

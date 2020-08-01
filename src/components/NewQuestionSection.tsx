@@ -1,7 +1,7 @@
 import React from "react";
 import {AppDataContext, Class, Question, Quiz} from "../data";
 import {useForm} from "react-hook-form";
-import {generateID} from "../../common/utils";
+import {generateID} from "../utils";
 import {loremIpsum} from "lorem-ipsum";
 
 const Wrapper = ({children}: { children: any }) => (<>
@@ -23,11 +23,8 @@ export const NewQuestionSection = ({quiz}: { quiz: Quiz }) => {
 	const onSubmit = (data: NewQuestionFormData): any => {
 		if (!user) return alert('you most signin to add question.');
 		if (!quiz) return alert('no quiz to add');
-		if (quiz.owner !== user) return alert('only quiz owner can modify it');
-		const newItem = new Question(data.ask, data.answer, data.option1, data.option2, data.option3, data.option4);
-		quiz.questions.push(newItem);
-		appData.setQuizzes([...appData.quizzes]);
-		return true;
+		if (quiz.ownerId !== user.id) return alert('only quiz owner can modify it');
+		appData.addQuestion(quiz.id, data.ask, data.answer, [data.option1, data.option2, data.option3, data.option4]);
 	}
 
 	if (!user) return (<Wrapper>
@@ -38,7 +35,7 @@ export const NewQuestionSection = ({quiz}: { quiz: Quiz }) => {
 		<h5 className="text-danger">No quiz to add to</h5>
 	</Wrapper>);
 
-	if (quiz.owner !== user) return (<Wrapper>
+	if (quiz.ownerId !== user.id) return (<Wrapper>
 		<h5 className="text-danger">You are no owner of this quiz</h5>
 	</Wrapper>);
 
@@ -55,7 +52,8 @@ export const NewQuestionSection = ({quiz}: { quiz: Quiz }) => {
 
 			<div className="mb-3">
 				<label htmlFor="answer" className="form-label">True Answer option</label>
-				<input min={1} max={120} step={1} defaultValue={1} type='number' name="answer" id="answer" aria-describedby="answerHelp"
+				<input min={1} max={120} step={1} defaultValue={1} type='number' name="answer" id="answer"
+							 aria-describedby="answerHelp"
 							 ref={register({required: true})} className="form-control"/>
 				{errors.answer && <span className='text-danger'>This field is required</span>}
 			</div>

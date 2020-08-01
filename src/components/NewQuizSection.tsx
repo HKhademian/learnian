@@ -1,7 +1,7 @@
 import React from "react";
 import {AppDataContext, Class, Question, Quiz} from "../data";
 import {useForm} from "react-hook-form";
-import {generateID} from "../../common/utils";
+import {generateID} from "../utils";
 import {loremIpsum} from "lorem-ipsum";
 
 const Wrapper = ({children}: { children: any }) => (<>
@@ -17,17 +17,13 @@ const Wrapper = ({children}: { children: any }) => (<>
 export const NewQuizSection = () => {
 	const appData = React.useContext(AppDataContext);
 	const user = appData.user;
-	const classes = appData.classes.filter((it) => it.owner === user);
+	const classes = appData.classes.filter((it) => it.ownerId === user?.id);
 
 	type NewQuizFormData = { classId: string, title: string, time: number, point: number, questions: number };
 	const {register, handleSubmit, errors} = useForm<NewQuizFormData>();
 	const onSubmit = (data: NewQuizFormData): any => {
-		if (!user) return alert('you most signin to create.');
-		const clazz = classes.find((it) => it.id === data.classId);
-		if (!clazz) return alert("you most select a class");
-		const newItem = new Quiz(generateID(), data.title, data.time, data.point, clazz);
-		appData.setQuizzes([newItem, ...appData.quizzes]);
-		return true;
+		if (!data.classId) return alert("you most select a class");
+		appData.addQuiz(data.classId, data.title, data.time, data.point);
 	}
 
 	if (!user) return (<Wrapper>

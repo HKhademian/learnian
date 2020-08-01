@@ -8,14 +8,13 @@ export const UserListPage = () => {
 	const history = useHistory();
 	const appData = React.useContext(AppDataContext);
 	const onAttend = (cls: Class) => history.push('/classroom/' + cls.id);
-	const logout = () => appData.logout();
 
 	const InnerUserWidget = ({user}: { user: User }) => {
 		const InnerClassWidget = ({item}: { item: Class }) => (<>
 			<a className='btn btn-link' onClick={() => onAttend(item)}>{item.title}</a>
 		</>);
 
-		let classes = appData.classes.filter((it) => it.owner === user);
+		let classes = appData.classes.filter((it) => it.ownerId === user.id);
 		return (<>
 			<span>{user.title}</span>
 			{classes && classes.length > 0 && <> :

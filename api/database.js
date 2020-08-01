@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const defaults = require('./defaults');
 
 const PATH_BASE = path.join(__dirname, './database/');
 const PATH_USERS = path.join(PATH_BASE, './users.json');
@@ -8,21 +9,30 @@ const PATH_QUIZZES = path.join(PATH_BASE, './quizzes.json');
 
 const readUsers = () => {
 	// console.log('loadUsers');
-	if (!fs.existsSync(PATH_USERS)) return [];
+	if (!fs.existsSync(PATH_USERS)) {
+		console.log('write default Users');
+		writeUsers(defaults.users);
+	}
 	const raw = fs.readFileSync(PATH_USERS);
 	return JSON.parse(raw);
 }
 
 const readClasses = () => {
 	// console.log('loadClasses');
-	if (!fs.existsSync(PATH_CLASSES)) return [];
+	if (!fs.existsSync(PATH_CLASSES)) {
+		console.log('write default Classes');
+		writeClasses(defaults.classes);
+	}
 	const raw = fs.readFileSync(PATH_CLASSES);
 	return JSON.parse(raw);
 };
 
 const readQuizzes = () => {
 	// console.log('loadQuizzes');
-	if (!fs.existsSync(PATH_QUIZZES)) return [];
+	if (!fs.existsSync(PATH_QUIZZES)) {
+		console.log('write default Quizzes');
+		writeQuizzes(defaults.quizzes);
+	}
 	const raw = fs.readFileSync(PATH_QUIZZES);
 	return JSON.parse(raw);
 };
@@ -30,26 +40,20 @@ const readQuizzes = () => {
 
 const writeUsers = (items) => {
 	console.log('saveUsers');
-	let raw = JSON.stringify(items, null, 0);
-	return fs.writeFile(PATH_USERS, raw, (err) => {
-		if (err) throw err;
-	});
+	let raw = JSON.stringify(items, null, 2);
+	return fs.writeFileSync(PATH_USERS, raw);
 }
 
 const writeClasses = (items) => {
 	// console.log('saveClasses');
 	let raw = JSON.stringify(items, null, 0);
-	return fs.writeFile(PATH_CLASSES, raw, (err) => {
-		if (err) throw err;
-	});
+	return fs.writeFileSync(PATH_CLASSES, raw);
 }
 
 const writeQuizzes = (items) => {
 	// console.log('saveQuizzes');
 	let raw = JSON.stringify(items, null, 0);
-	return fs.writeFile(PATH_QUIZZES, raw, (err) => {
-		if (err) throw err;
-	});
+	return fs.writeFileSync(PATH_QUIZZES, raw);
 }
 
 const load = (db) => {
@@ -61,7 +65,7 @@ const load = (db) => {
 };
 
 const save = (db) => {
-	// console.log('save database');
+	// console.log('save database',db);
 	writeUsers(db.users);
 	writeClasses(db.classes);
 	writeQuizzes(db.quizzes);
@@ -79,5 +83,5 @@ module.exports = (req, res, next) => {
 	};
 	load(req.database);
 	next();
-	req.database.changed && save();
+	req.database.changed && save(req.database);
 };

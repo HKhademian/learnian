@@ -1,6 +1,6 @@
 import {AppData, AppDataContext, Class} from "../data";
 import {useForm} from "react-hook-form";
-import {generateID} from "../../common/utils";
+import {generateID} from "../utils";
 import {loremIpsum} from "lorem-ipsum";
 import React from "react";
 
@@ -23,9 +23,7 @@ export const NewClassSection = () => {
 		if (!appData.user) return;
 		if (data.title.length < 5) return alert("Choose title longer than 5");
 		if (data.desc.length < 15) return alert("Choose desc longer than 15");
-		const id = generateID();
-		const newClass = new Class(id, data.title, data.desc, 0, appData.user as any);
-		appData.setClasses([newClass, ...appData.classes]);
+		appData.addClass(data.title, data.desc);
 	}
 
 	const user = appData.user;
