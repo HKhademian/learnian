@@ -1,13 +1,11 @@
 import React from 'react';
-import {useHistory} from "react-router-dom";
 
 import {AppDataContext, Class, User,} from '../data';
 import {AppFrame,} from '../components';
 
 export const UserListPage = () => {
-	const history = useHistory();
 	const appData = React.useContext(AppDataContext);
-	const onAttend = (cls: Class) => history.push('/classroom/' + cls.id);
+	const onAttend = (item: Class) => appData.gotoClass(item.id);
 
 	const InnerUserWidget = ({user}: { user: User }) => {
 		const InnerClassWidget = ({item}: { item: Class }) => (<>

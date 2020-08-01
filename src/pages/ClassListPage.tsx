@@ -1,5 +1,4 @@
 import React from 'react';
-import {useHistory} from "react-router-dom";
 
 import {AppDataContext, Class,} from '../data';
 import {AppFrame,} from '../components';
@@ -9,8 +8,7 @@ import {NewClassSection} from "../components/NewClassSection";
 
 export const ClassListPage = () => {
 	const appData = React.useContext(AppDataContext);
-	const history = useHistory();
-	const onAttend = (item: Class) => history.push(`/classroom/${item.id}`);
+	const onAttend = (item: Class) => appData.gotoClass(item.id);
 
 	return (<AppFrame>
 		<h1>List All Classes</h1>

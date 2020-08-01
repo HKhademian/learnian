@@ -18,12 +18,14 @@ export const NewQuestionSection = ({quiz}: { quiz: Quiz }) => {
 	const appData = React.useContext(AppDataContext);
 	const user = appData.user;
 
+	const clazz = appData.classes.find(it => it.id === quiz.classId);
+
 	type NewQuestionFormData = { ask: string, answer: number, option1: string, option2: string, option3: string, option4: string };
 	const {register, handleSubmit, errors} = useForm<NewQuestionFormData>();
 	const onSubmit = (data: NewQuestionFormData): any => {
 		if (!user) return alert('you most signin to add question.');
 		if (!quiz) return alert('no quiz to add');
-		if (quiz.ownerId !== user.id) return alert('only quiz owner can modify it');
+		if (clazz?.ownerId !== user.id) return alert('only quiz owner can modify it');
 		appData.addQuestion(quiz.id, data.ask, data.answer, [data.option1, data.option2, data.option3, data.option4]);
 	}
 
@@ -35,7 +37,7 @@ export const NewQuestionSection = ({quiz}: { quiz: Quiz }) => {
 		<h5 className="text-danger">No quiz to add to</h5>
 	</Wrapper>);
 
-	if (quiz.ownerId !== user.id) return (<Wrapper>
+	if (clazz?.ownerId !== user.id) return (<Wrapper>
 		<h5 className="text-danger">You are no owner of this quiz</h5>
 	</Wrapper>);
 

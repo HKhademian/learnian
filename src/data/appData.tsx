@@ -28,11 +28,13 @@ export type AppData = {
 	classes: Class[],
 	addClass: (title: string, desc: string) => any,
 	deleteClass: (id: string) => any,
+	gotoClass: (id: string, info?: boolean) => any,
 
 	quizzes: Quiz[],
 	addQuiz: (classId: string, title: string, time: number, point: number) => any,
 	deleteQuiz: (id: string) => any,
 	addQuestion: (quizId: string, ask: string, answer: number, options: string[]) => any,
+	gotoQuiz: (id: string) => any,
 
 	user: User | undefined,
 	users: User[],
@@ -83,13 +85,19 @@ export const AppDataProvider = ({children}: { children: any }) => {
 				alert(err);
 			});
 
+
+	const gotoClass = (id: string, info: boolean = false) => {
+		if (info) history.push(`/class/${id}`);
+		else history.push(`/classroom/${id}`);
+	}
+
 	const addClass = (title: string, desc: string) => {
 		if (!user) return alert('you most login first');
 		return fetchApi(API_CLASSES, {title, desc, ownerId: user.id}, 'POST')
 			.then(jsonToClass)
 			.then(data => {
 				setClasses([...classes, data]);
-				history.replace('/');
+				gotoClass(data.id);
 			})
 			.catch(err => {
 				alert(err);
@@ -101,21 +109,26 @@ export const AppDataProvider = ({children}: { children: any }) => {
 		return fetchApi(API_CLASSES, {id, ownerId: user.id}, 'DELETE')
 			.then(_ => {
 				setClasses(classes.filter(it => it.id !== id));
-				history.replace('/');
+				setQuizzes(quizzes.filter(it => it.classId !== id));
+				// history.goBack();
 			})
 			.catch(err => {
 				alert(err);
 			});
 	}
 
+
+	const gotoQuiz = (id: string) =>
+		history.push(`/quiz/${id}`);
+
 	const addQuiz = (classId: string, title: string, time: number, point: number) => {
 		if (!user) return alert('you most login first');
 		if (!classId) return alert('you most choose a class');
-		return fetchApi(API_CLASSES, {classId, title, time, point, ownerId: user.id}, 'POST')
+		return fetchApi(API_QUIZZES, {classId, title, time, point, ownerId: user.id}, 'POST')
 			.then(jsonToQuiz)
 			.then(data => {
 				setQuizzes([...quizzes, data]);
-				history.replace('/');
+				gotoQuiz(data.id);
 			})
 			.catch(err => {
 				alert(err);
@@ -127,7 +140,7 @@ export const AppDataProvider = ({children}: { children: any }) => {
 		return fetchApi(API_QUIZZES, {id, ownerId: user.id}, 'DELETE')
 			.then(_ => {
 				setQuizzes(quizzes.filter(it => it.id !== id));
-				history.replace('/');
+				// history.goBack();
 			})
 			.catch(err => {
 				alert(err);
@@ -141,7 +154,7 @@ export const AppDataProvider = ({children}: { children: any }) => {
 			.then(jsonToQuiz)
 			.then(data => {
 				setQuizzes([...quizzes.filter(it => it.id !== quizId), data]);
-				history.replace('/');
+				gotoQuiz(quizId);
 			})
 			.catch(err => {
 				alert(err);
@@ -150,23 +163,20 @@ export const AppDataProvider = ({children}: { children: any }) => {
 
 	const data: AppData = {
 		user, users, register, login, logout,
-		classes, addClass, deleteClass,
-		quizzes, addQuiz, deleteQuiz,
+		classes, addClass, deleteClass, gotoClass,
+		quizzes, addQuiz, deleteQuiz, gotoQuiz,
 		addQuestion,
 	};
 
 	// load all datas
 	// this is a very simple
 	// remote data connection
-	// there is no real data in there
 	// inspiration from : https://reactjs.org/docs/faq-ajax.html
 	useEffect(() => {
 		fetchApi(API_USERS, undefined, 'GET')
 			.then(res => {
 				console.log(res);
-				return res.map((data: any) => {
-					return new User(data.id, data.title)
-				});
+				return res.map(jsonToUser);
 			})
 			.then(res => {
 				console.log('users', res);
@@ -178,9 +188,7 @@ export const AppDataProvider = ({children}: { children: any }) => {
 		fetchApi(API_CLASSES, undefined, 'GET')
 			.then(res => {
 				console.log(res);
-				return res.map((data: any) => {
-					return new Class(data.id, data.title, data.desc, data.studentCount, data.ownerId);
-				});
+				return res.map(jsonToClass);
 			})
 			.then(res => {
 				console.log('classes', res);
@@ -191,9 +199,7 @@ export const AppDataProvider = ({children}: { children: any }) => {
 		fetchApi(API_QUIZZES, undefined, 'GET')
 			.then(res => {
 				console.log(res);
-				return res.map((data: any) => {
-
-				});
+				return res.map(jsonToQuiz);
 			})
 			.then(res => {
 				console.log('quizzes', res);

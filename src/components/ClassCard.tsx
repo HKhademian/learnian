@@ -1,12 +1,10 @@
 import React from "react";
 import {AppDataContext, Class} from "../data";
-import {useHistory} from "react-router-dom";
 
 export const ClassCard = ({item, single = false}: { item: Class, single?: boolean }) => {
 	const appData = React.useContext(AppDataContext);
-	const history = useHistory();
-	const onInfo = (item: Class) => history.push(`/class/${item.id}`);
-	const onAttend = (item: Class) => history.push(`/classroom/${item.id}`);
+	const onInfo = (item: Class) => appData.gotoClass(item.id, true);
+	const onAttend = (item: Class) => appData.gotoClass(item.id);
 
 	const onDeleteItem = (item: Class) => {
 		if (!appData.user || item.ownerId !== appData.user.id) return alert('only owner can delete a class!');

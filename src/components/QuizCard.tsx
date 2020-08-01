@@ -1,19 +1,17 @@
 import React from "react";
 import {AppDataContext, Quiz} from "../data";
-import {useHistory} from "react-router-dom";
 
 export const QuizCard = ({item}: { item: Quiz }) => {
-	const history = useHistory();
 	const appData = React.useContext(AppDataContext);
 
-	const onAttend = (item: Quiz) => history.push(`/quiz/${item.id}`);
+	const clazz = appData.classes.find(it => it.id === item.classId);
+	const owner = appData.users.find(it => it.id === clazz?.ownerId);
 
+	const onAttend = (item: Quiz) => appData.gotoQuiz(item.id);
 	const onDeleteItem = (item: Quiz) => {
-		if (item.ownerId !== appData.user?.id) return alert('only owner can delete a quiz!');
+		if (owner !== appData.user?.id) return alert('only owner can delete a quiz!');
 		appData.deleteQuiz(item.id);
 	};
-
-	const owner = appData.users.find(it => it.id === item.ownerId);
 
 	return (<>
 		<div className="card mb-3">
@@ -22,7 +20,7 @@ export const QuizCard = ({item}: { item: Quiz }) => {
 				<div className='card-text d-table'>
 					<div className='d-table-row'>
 						<div className='d-table-cell'><strong>Teacher: </strong><em> {owner?.title}</em></div>
-						<div className='d-table-cell'><strong>Class: </strong><em> {item.clazz.title}</em></div>
+						<div className='d-table-cell'><strong>Class: </strong><em> {clazz?.title}</em></div>
 						<div className='d-table-cell'><strong>Questions: </strong><em> {item.questions.length}</em></div>
 					</div>
 					<div className='d-table-row'>
@@ -32,7 +30,7 @@ export const QuizCard = ({item}: { item: Quiz }) => {
 				</div>
 				<div className="btn-group align-self-stretch" role="group">
 					<button type="button" className="btn btn-info" onClick={() => onAttend(item)}>Take This Quiz</button>
-					{(item.ownerId === appData.user?.id) && (
+					{(clazz?.ownerId === appData.user?.id) && (
 						<button type="button" className="btn btn-danger" onClick={() => onDeleteItem(item)}>
 							Delete Quiz
 						</button>

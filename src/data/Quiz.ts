@@ -15,16 +15,12 @@ export class Question {
 export class Quiz {
 	public questions: Question[];
 
-	public get ownerId(): string {
-		return this.clazz.ownerId;
-	}
-
 	constructor(
 		public id: string,
 		public title: string,
 		public time: number,
 		public points: number,
-		public clazz: Class,
+		public classId: string,
 		...questions: Question[]
 	) {
 		this.questions = questions;

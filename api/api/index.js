@@ -10,7 +10,7 @@ router.use(cors({origin: 'http://localhost:3000', credentials: true}));
 router.use((req, res, next) => {
 	console.log('enter api section');
 
-	res.apiSuccess = (result, message = undefined) =>
+	res.apiSuccess = (result = undefined, message = undefined) =>
 		res.json({status: 'success', result, message});
 
 	res.apiError = (message = undefined, result = undefined) =>

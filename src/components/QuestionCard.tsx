@@ -5,7 +5,7 @@ export const QuestionCard = ({index, item}: { index: number, item: Question }) =
 	const [select, setSelect] = useState(-1);
 	return (<>
 		<form className="card mb-3">
-			<h5 className="card-header">Question #{index}</h5>
+			<h5 className="card-header">Question #{index + 1}</h5>
 			<div className="card-body">
 				<div className='card-text'>{item.ask}</div>
 			</div>

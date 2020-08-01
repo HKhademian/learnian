@@ -15,11 +15,12 @@ export const QuizPage = () => {
 	const {id} = useParams<QuizPageParams>();
 	const currentQuiz = id && id.length && appData.quizzes.find(it => it.id === id);
 	if (!currentQuiz) return <div>Quiz Not found</div>;
+	const clazz = appData.classes.find(it => it.id === currentQuiz.classId);
 
 	return (<AppFrame>
 		<div className='row row-cols-lg-2 gx-2 gy-2'>
 			<div className='col-md-6'>
-				<ClassCard item={currentQuiz!!.clazz}/>
+				<ClassCard item={clazz!!}/>
 			</div>
 			<div className='col-md-6'>
 				<QuizCard item={currentQuiz}/>
