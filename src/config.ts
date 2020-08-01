@@ -1,6 +1,6 @@
 import {Class, Question, Quiz, User} from "./data";
 import {loremIpsum} from "lorem-ipsum";
-import {generateID} from "./utils";
+import {generateID} from "../common/utils";
 
 const userAdmin = new User('admin', 'Administrator');
 const userManager1 = new User('mng1', 'Manager 1');

@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Class, Quiz, User} from './';
+import React, {useEffect, useState} from 'react';
+import {Class, Question, Quiz, User} from './';
 import {useHistory} from "react-router-dom";
 import config from '../config';
 
@@ -67,6 +67,68 @@ export const AppDataProvider = ({children}: { children: any }) => {
 		login,
 		logout
 	};
+
+	// load all datas
+	// this is a very simple
+	// remote data connection
+	// there is no real data in there
+	// inspiration from : https://reactjs.org/docs/faq-ajax.html
+	useEffect(() => {
+		let loadedUsers: User[] = [];
+		let loadedClasses: Class[] = [];
+		let loadedQuizzes: Quiz[] = [];
+
+		fetch('http://localhost:8000/api/users')
+			.then(res => res.json())
+			.then(res => {
+				console.log(res);
+				return res.map((data: any) => {
+					return new User(data.username, data.title, data.password)
+				});
+			})
+			.then(res => {
+				console.log('users', res);
+				loadedUsers = res;
+				setUsers(res);
+				setUser(res[0]);
+			})
+			.catch(console.log);
+
+		fetch('http://localhost:8000/api/classes')
+			.then(res => res.json())
+			.then(res => {
+				console.log(res);
+				return res.map((data: any) => {
+					const owner = loadedUsers.find(it => it.username === data.ownerId)!!;
+					return new Class(data.id, data.title, data.desc, data.studentCount, owner);
+				});
+			})
+			.then(res => {
+				console.log('classes', res);
+				loadedClasses = res;
+				setClasses(res);
+			})
+			.catch(console.log);
+
+		fetch('http://localhost:8000/api/quizzes')
+			.then(res => res.json())
+			.then(res => {
+				console.log(res);
+				return res.map((data: any) => {
+					const clazz = loadedClasses.find(it => it.id === data.classId)!!;
+					const questions = (data.questions as any[]).map((q: { ask: string, answer: number, options: string[] }) =>
+						new Question(q.ask, q.answer, ...q.options));
+					return new Quiz(data.id, data.title, data.time, data.point, clazz, ...questions);
+				});
+			})
+			.then(res => {
+				console.log('quizzes', res);
+				loadedQuizzes = res;
+				setQuizzes(res);
+			})
+			.catch(console.log);
+
+	}, []);
 
 	return <AppDataContext.Provider value={data} children={children}/>;
 };

@@ -1,0 +1,9 @@
+[
+	{
+		"id": "testcls1",
+		"ownerId": "admini",
+		"title": "test class 1",
+		"desc": "a test class",
+		"studentCount": 12
+	}
+]

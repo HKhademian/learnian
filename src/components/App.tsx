@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
 
-import {AppDataProvider} from '../data';
+import {AppDataContext, AppDataProvider} from '../data';
 import {MyAppRouter} from '../pages';
 
 export const App = () => {
