@@ -1,7 +1,6 @@
-import {Quiz, User} from './';
+import {User} from './';
 
 export class Class {
-	public quizzes: Quiz[];
 
 	public get image(): string {
 		const rand = this.id;
@@ -17,8 +16,6 @@ export class Class {
 		public desc: string,
 		public studentCount: number,
 		public owner: User,
-		...quizzes: Quiz[]
 	) {
-		this.quizzes = quizzes;
 	}
 }

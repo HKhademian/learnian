@@ -27,13 +27,8 @@ export const UserListPage = () => {
 	if (!appData.user) return <div>Please Login to see this page</div>;
 
 	return (<AppFrame>
-		<div className='container'>
-			<h4>Hi {appData.user.title}</h4>
-			<button className='btn btn-danger' onClick={logout}>Logout</button>
-		</div>
-		<hr/>
-
 		<h3>Users and their classes</h3>
+		<hr/>
 		<ul>{appData.users.map((user) => (<li><InnerUserWidget user={user}/></li>))}</ul>
 	</AppFrame>);
 }

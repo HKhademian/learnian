@@ -5,7 +5,7 @@ import CanvasDraw from 'react-canvas-draw';
 
 const colors = {
 	"Black": "#000000",
-	"White": "#ffffff",
+	// "White": "#ffffff",
 	"Red": "#f44336",
 	"Blue": "#2196f3",
 	"Green": "#4caf50",
@@ -15,9 +15,9 @@ const colors = {
 	"purple": "#9c27b0",
 	"cyan": "#00bcd4",
 	"teal": "#009688",
-	"lime": "#cddc39",
+	// "lime": "#cddc39",
 	"brown": "#795548",
-	"grey": "#333333",
+	"grey": "#999999",
 };
 
 const sizes = {
@@ -30,9 +30,10 @@ const sizes = {
 
 const style = {
 	choice: {
-		width: "25px", height: "25px", margin: 5,
+		width: "25px", height: "25px", margin: '3px',
 		backgroundColor: 'black', display: "inline-block",
 		border: "3px solid lightgrey",
+		borderColor: "lightgrey",
 	},
 	selected: {
 		borderColor: "gold",
@@ -49,52 +50,64 @@ export const WhiteBoard = (props) => {
 	const setColor = (color) => setOptions({...options, brushColor: color});
 	const setSize = (size) => setOptions({...options, brushRadius: size});
 
-	return (
-		<>
-			<table>
-				<tr>
-					<td>Brush Color:</td>
-					{Object.entries(colors).map(([name, color]) => (
-						<td
-							title={name}
-							key={color}
-							onClick={() => setColor(color)}
-							style={{
-								...style.choice,
-								...(color === options.brushColor && style.selected),
-								backgroundColor: color,
-							}}
-						/>
-					))}
-				</tr>
-			</table>
+	return (<>
+		<div className='container'>
+			<div className='row row-cols-lg-2 gx-2 gy-2' style={{overflow: 'hidden'}}>
 
-			<table>
-				<tr>
-					<td>Brush Radius:</td>
-					{Object.entries(sizes).map(([name, size]) => (
-						<td
-							title={name}
-							key={size}
-							onClick={() => setSize(size)}
-							style={{
-								...style.choice,
-								...(size === options.brushRadius && style.selected),
-								backgroundColor: options.brushColor,
-								width: 10 + 5 * size,
-							}}
-						/>
-					))}
-				</tr>
-			</table>
+				<div className='col-lg-6 col-12'>
+					<div className='card'>
+						<div className='card-header'>Brush Color:</div>
+						<div className='card-body'>
+							{Object.entries(colors).map(([name, color]) => (
+								<div
+									title={name}
+									key={color}
+									onClick={() => setColor(color)}
+									style={{
+										...style.choice,
+										...(color === options.brushColor && style.selected),
+										backgroundColor: color,
+									}}
+								/>
+							))}
+						</div>
+					</div>
+				</div>
 
-			<div>
-				<CanvasDraw style={{
-					textAlign: "center",
-				}} {...options} />
+				<div className='col-lg-6 col-12'>
+					<div className='card'>
+						<div className='card-header'>Brush Size:</div>
+						<div className='card-body'>
+							{Object.entries(sizes).map(([name, size]) => (
+								<div
+									title={name}
+									key={size}
+									onClick={() => setSize(size)}
+									style={{
+										...style.choice,
+										...(size === options.brushRadius && style.selected),
+										backgroundColor: options.brushColor,
+										width: 10 + 8 * size,
+									}}
+								/>
+							))}
+						</div>
+					</div>
+				</div>
+
+				<div className='col-lg-12 col-12'>
+					<div className='border'>
+						<CanvasDraw style={{
+							textAlign: "center",
+						}} {...options} />
+					</div>
+				</div>
+
 			</div>
-		</>
-	);
+		</div>
+
+
+	</>);
 };
 
 WhiteBoard.propTypes = CanvasDraw.propTypes;

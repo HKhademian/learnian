@@ -4,7 +4,7 @@ import { Copyright } from '.';
 export const Footer = (props: any) => {
 	return (<>
 		<hr />
-		<footer>
+		<footer className='container'>
 			<Copyright />
 		</footer>
 	</>);

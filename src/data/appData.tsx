@@ -14,6 +14,7 @@ export type AppData = {
 	setClasses: (items: Class[]) => void,
 
 	quizzes: Quiz[],
+	setQuizzes: (items: Quiz[]) => void,
 
 	register: (username: string, password: string, title: string) => any,
 	login: (username: string, password: string) => any,
@@ -22,7 +23,7 @@ export type AppData = {
 
 export const AppDataContext = React.createContext<AppData>(undefined as any as AppData);
 
-export const AppDataProvider = (props: any) => {
+export const AppDataProvider = ({children}: { children: any }) => {
 	const history = useHistory();
 
 	const defaultUser = config.defaults.users[3];
@@ -57,7 +58,15 @@ export const AppDataProvider = (props: any) => {
 		return true;
 	}
 
-	const data: AppData = {user, setUser, users, setUsers, classes, setClasses, quizzes, register, login, logout};
+	const data: AppData = {
+		user, setUser,
+		users, setUsers,
+		classes, setClasses,
+		quizzes, setQuizzes,
+		register,
+		login,
+		logout
+	};
 
-	return <AppDataContext.Provider value={data} children={props.children}/>;
+	return <AppDataContext.Provider value={data} children={children}/>;
 };
