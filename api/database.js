@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const defaults = require('./defaults');
+const defaults = require('../src/common/defaults');
 
 const PATH_BASE = path.join(__dirname, './database/');
 const PATH_USERS = path.join(PATH_BASE, './users.json');
@@ -58,6 +58,9 @@ const writeQuizzes = (items) => {
 
 const load = (db) => {
 	// console.log('load database');
+	if (!fs.existsSync(PATH_BASE)) {
+		fs.mkdirSync(PATH_BASE, {recursive: true});
+	}
 	db.users = readUsers();
 	db.classes = readClasses();
 	db.quizzes = readQuizzes();

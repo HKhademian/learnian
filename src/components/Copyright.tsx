@@ -3,12 +3,10 @@ import React from 'react';
 
 export const Copyright = () => {
 	return (<>
-		 {/*<Typography variant="body2" color="textSecondary" align="center">*/}
 		{'Copyright © '}
-		<a color="inherit" href="//hkhademian.ir/" target="_blank">
+		<a className="link-info" href="//hkhademian.ir/" target="_blank">
 			Hossain Khademian
 		</a>{' '}
 		{new Date().getFullYear()}{'.'}
-		{/*</Typography>*/}
 	</>);
 }

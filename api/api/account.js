@@ -1,5 +1,5 @@
 const express = require('express');
-const {generateID} = require('../../src/utils');
+const {generateID} = require('../../src/common/utils');
 
 const router = express.Router();
 module.exports = {account: router};

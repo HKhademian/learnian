@@ -1,3 +1,6 @@
+const {generateID} = require('./utils');
+const {loremIpsum} = require('lorem-ipsum');
+
 const users = [
 	{
 		"id": "zk90bdnq",
@@ -81,21 +84,21 @@ const classes = [
 	{
 		"id": "13c26u1ok",
 		"ownerId": "14nkmq4us",
-		"title": "Python",
+		"title": "Python for Stocks analysing",
 		"desc": "Excepteur cillum eu elit velit adipisicing laborum qui aliquip nulla culpa.",
 		"studentCount": 22,
 	},
 	{
 		"id": "x5kkntqf",
 		"ownerId": "zuwe1fqx",
-		"title": "C++",
+		"title": "Advanced C#",
 		"desc": "Mollit est sint in nostrud esse voluptate.",
 		"studentCount": 20,
 	},
 	{
 		"id": "14qlc14hm",
 		"ownerId": "13pnprpxr",
-		"title": "C++",
+		"title": "Intro to C++",
 		"desc": "Irure ullamco duis velit eu amet eu veniam incididunt dolor in.",
 		"studentCount": 7,
 	},

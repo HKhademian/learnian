@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 
-import {fetchApi, SERVER_BASE} from '../utils';// @ts-ignore
-import config from '../config';
+import {fetchApi, SERVER_BASE} from '../common/utils';// @ts-ignore
 import {Class, Question, Quiz, User} from './';
 
 const API_BASE = `${SERVER_BASE}/api`;
