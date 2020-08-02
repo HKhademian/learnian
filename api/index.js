@@ -1,7 +1,7 @@
 const express = require('express');
 const {api} = require('./api');
 
-const PORT = 8000;
+const PORT = 4000;
 
 const app = express();
 
