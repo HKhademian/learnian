@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 
 import {fetchApi, SERVER_BASE} from '../common/utils';// @ts-ignore
+import defaults from '../common/defaults';// @ts-ignore
 import {Class, Question, Quiz, User} from './';
 
 const API_BASE = `${SERVER_BASE}/api`;
@@ -14,6 +15,10 @@ const API_USERS = `${API_BASE}/users`;
 const API_CLASSES = `${API_BASE}/classes`;
 const API_QUIZZES = `${API_BASE}/quizzes`;
 const API_QUESTIONS = `${API_BASE}/quizzes/questions`;
+
+function jsonToArray<T>(mapper: (data: any) => T) {
+	return (data: any) => (data as any[]).map(mapper)
+}
 
 const jsonToUser = (data: any) => new User(data.id, data.title);
 const jsonToClass = (data: any) => new Class(data.id, data.title, data.desc, data.studentCount || 0, data.ownerId);
@@ -40,6 +45,10 @@ export type AppData = {
 	register: (username: string, password: string, title: string) => any,
 	login: (username: string, password: string) => any,
 	logout: () => any,
+
+	loadAllUsers: () => Promise<any>,
+	loadAllClasses: () => Promise<any>,
+	loadAllQuizzes: () => Promise<any>,
 };
 
 export const AppDataContext = React.createContext<AppData>(undefined as any as AppData);
@@ -47,10 +56,14 @@ export const AppDataContext = React.createContext<AppData>(undefined as any as A
 export const AppDataProvider = ({children}: { children: any }) => {
 	const history = useHistory();
 
-	const [user, setUser] = useState<User | undefined>(undefined);
-	const [users, setUsers] = useState<User[]>([]);
-	const [classes, setClasses] = useState<Class[]>([]);
-	const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+	const defaultUsers = jsonToArray(jsonToUser)(defaults.users);
+	const defaultClasses = jsonToArray(jsonToClass)(defaults.classes);
+	const defaultQuizzes = jsonToArray(jsonToQuiz)(defaults.quizzes);
+
+	const [user, setUser] = useState<User | undefined>(defaultUsers[0]);
+	const [users, setUsers] = useState<User[]>(defaultUsers);
+	const [classes, setClasses] = useState<Class[]>(defaultClasses);
+	const [quizzes, setQuizzes] = useState<Quiz[]>(defaultQuizzes);
 
 	const register = (username: string, password: string, title: string) =>
 		fetchApi(API_ACCOUNT_REGISTER, {username, password, title})
@@ -160,23 +173,10 @@ export const AppDataProvider = ({children}: { children: any }) => {
 			});
 	}
 
-	const data: AppData = {
-		user, users, register, login, logout,
-		classes, addClass, deleteClass, gotoClass,
-		quizzes, addQuiz, deleteQuiz, gotoQuiz,
-		addQuestion,
-	};
 
-	// load all datas
-	// this is a very simple
-	// remote data connection
-	// inspiration from : https://reactjs.org/docs/faq-ajax.html
-	useEffect(() => {
+	const loadAllUsers = () =>
 		fetchApi(API_USERS, undefined, 'GET')
-			.then(res => {
-				console.log(res);
-				return res.map(jsonToUser);
-			})
+			.then(jsonToArray(jsonToUser))
 			.then(res => {
 				console.log('users', res);
 				setUsers(res);
@@ -184,29 +184,42 @@ export const AppDataProvider = ({children}: { children: any }) => {
 			})
 			.catch(console.log);
 
+	const loadAllClasses = () =>
 		fetchApi(API_CLASSES, undefined, 'GET')
-			.then(res => {
-				console.log(res);
-				return res.map(jsonToClass);
-			})
+			.then(jsonToArray(jsonToClass))
 			.then(res => {
 				console.log('classes', res);
 				setClasses(res);
 			})
 			.catch(console.log);
 
+	const loadAllQuizzes = () =>
 		fetchApi(API_QUIZZES, undefined, 'GET')
-			.then(res => {
-				console.log(res);
-				return res.map(jsonToQuiz);
-			})
+			.then(jsonToArray(jsonToQuiz))
 			.then(res => {
 				console.log('quizzes', res);
 				setQuizzes(res);
 			})
 			.catch(console.log);
 
+	// load all datas
+	// this is a very simple
+	// remote data connection
+	// inspiration from : https://reactjs.org/docs/faq-ajax.html
+	useEffect(() => {
+		loadAllUsers();
+		loadAllClasses();
+		loadAllQuizzes();
 	}, []);
+
+	const data: AppData = {
+		user, users, register, login, logout,
+		classes, addClass, deleteClass, gotoClass,
+		quizzes, addQuiz, deleteQuiz, gotoQuiz,
+		addQuestion,
+		loadAllUsers, loadAllClasses, loadAllQuizzes,
+	};
+
 
 	return <AppDataContext.Provider value={data} children={children}/>;
 };

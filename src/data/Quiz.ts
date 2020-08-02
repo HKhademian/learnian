@@ -1,5 +1,3 @@
-import {Class, User} from "./";
-
 export class Question {
 	public options: string[]
 

@@ -5,10 +5,10 @@ const database = require('../database');
 const router = express.Router();
 module.exports = {api: router};
 
-router.use(cors({origin: 'http://localhost:5000', credentials: true}));
+router.use(cors());
 
 router.use((req, res, next) => {
-	console.log('enter api section');
+	console.log('enter api section', req.headers);
 
 	res.apiSuccess = (result = undefined, message = undefined) =>
 		res.json({status: 'success', result, message});

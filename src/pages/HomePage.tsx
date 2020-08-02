@@ -1,13 +1,33 @@
 import React from 'react';
 import {useHistory} from "react-router-dom";
-import {AppFrame, Footer, Header,} from '../components';
+import {Footer, Header,} from '../components';
 
 import img1 from '../assets/boy.png';
-import img_google from '../assets/istockphoto-1224353441-1024x1024.jpg';
 
 export const HomePage = () => {
 	const history = useHistory();
 	const onAction = () => history.push('/account');
+
+	const customers = [
+		{
+			title: 'D-Link',
+			imgTop: 'https://www.digitalsamba.com/hs-fs/hubfs/slider_oem.png?width=800&name=slider_oem.png',
+			imgLogo: 'https://www.digitalsamba.com/hs-fs/hubfs/2_dlink_transparent.png?noresize&width=240&name=2_dlink_transparent.png',
+			story: 'Our key people need lots of interactive features for things like sales training. Digital Samba is the only single platform that somehow fits our very distinct user-behaviors.'
+		},
+		{
+			title: 'SEAS',
+			imgTop: 'https://www.digitalsamba.com/hs-fs/hubfs/slider_education.png?noresize&width=800&name=slider_education.png',
+			imgLogo: 'https://www.digitalsamba.com/hs-fs/hubfs/6_seas.png?noresize&width=216&name=6_seas.png',
+			story: 'We have adapted Digital Samba’s software to serve specific needs and it works perfectly for our meetings and teaching intercontinental classes. It’s universal and growing in adoption in our organization.'
+		},
+		{
+			title: 'SkyMeeting',
+			imgTop: 'https://www.digitalsamba.com/hs-fs/hubfs/slider_cloud.png?width=800&name=slider_cloud.png',
+			imgLogo: 'https://www.digitalsamba.com/hs-fs/hubfs/10_skymeeting.png?noresize&width=250&name=10_skymeeting.png',
+			story: 'With Digital Samba we achieved a massive growth of 30% — we went from 300 customers to more than 1,000 within a year. 88% of our customers renew their subscription.'
+		},
+	];
 
 	return (<>
 		<div className='container-fluid g-0 p-0 m-0 min-vh-100 bg-white'>
@@ -35,26 +55,7 @@ export const HomePage = () => {
 					<div className='display-3 mb-5'>Customer Success Stories</div>
 					<div className='row g-5'>
 						{/*https://www.digitalsamba.com/*/}
-						{[
-							{
-								title: 'D-Link',
-								imgTop: 'https://www.digitalsamba.com/hs-fs/hubfs/slider_oem.png?width=800&name=slider_oem.png',
-								imgLogo: 'https://www.digitalsamba.com/hs-fs/hubfs/2_dlink_transparent.png?noresize&width=240&name=2_dlink_transparent.png',
-								story: 'Our key people need lots of interactive features for things like sales training. Digital Samba is the only single platform that somehow fits our very distinct user-behaviors.'
-							},
-							{
-								title: 'SEAS',
-								imgTop: 'https://www.digitalsamba.com/hs-fs/hubfs/slider_education.png?noresize&width=800&name=slider_education.png',
-								imgLogo: 'https://www.digitalsamba.com/hs-fs/hubfs/6_seas.png?noresize&width=216&name=6_seas.png',
-								story: 'We have adapted Digital Samba’s software to serve specific needs and it works perfectly for our meetings and teaching intercontinental classes. It’s universal and growing in adoption in our organization.'
-							},
-							{
-								title: 'SkyMeeting',
-								imgTop: 'https://www.digitalsamba.com/hs-fs/hubfs/slider_cloud.png?width=800&name=slider_cloud.png',
-								imgLogo: 'https://www.digitalsamba.com/hs-fs/hubfs/10_skymeeting.png?noresize&width=250&name=10_skymeeting.png',
-								story: 'With Digital Samba we achieved a massive growth of 30% — we went from 300 customers to more than 1,000 within a year. 88% of our customers renew their subscription.'
-							},
-						].map(it => (<>
+						{customers.map(it => (<>
 							<div className='col-xlg-3 col-lg-4 col-md-6'>
 								<div className='d-flex flex-column border rounded shadow bg-white'>
 									<img className='img-fluid' src={it.imgTop}/>

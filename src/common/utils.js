@@ -6,9 +6,9 @@ const fetchApi = (url, data, method = 'POST') =>
 	fetch(url, {
 		method,
 		mode: "cors",
-		credentials: "include",
+		//credentials: "include",
 		headers: {
-			'Access-Control-Allow-Origin': SERVER_BASE,
+			//'Access-Control-Allow-Origin': SERVER_BASE,
 			'Content-Type': 'application/json',
 		},
 		body: data && JSON.stringify(data),

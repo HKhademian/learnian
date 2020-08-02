@@ -1,7 +1,6 @@
 import React from "react";
-import {AppDataContext, Class, Question, Quiz} from "../data";
+import {AppDataContext, Quiz} from "../data";
 import {useForm} from "react-hook-form";
-import {generateID} from "../common/utils";
 import {loremIpsum} from "lorem-ipsum";
 
 const Wrapper = ({children}: { children: any }) => (<>
