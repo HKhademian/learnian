@@ -5,7 +5,7 @@ const database = require('../database');
 const router = express.Router();
 module.exports = {api: router};
 
-router.use(cors({origin: 'http://localhost:3000', credentials: true}));
+router.use(cors({origin: 'http://localhost:5000', credentials: true}));
 
 router.use((req, res, next) => {
 	console.log('enter api section');
